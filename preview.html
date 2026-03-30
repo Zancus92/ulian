@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ulian Eric | Graphic Designer</title>
+  <meta
+    name="description"
+    content="Portfolio di Ulian Eric, freelancer graphic designer. Supporto web e grafico per aziende e professionisti."
+  />
+  <style>
+    :root {
+      --bg: #0a0a0d;
+      --bg-soft: #121218;
+      --card: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.08);
+      --text: #f5f5f7;
+      --muted: #b7b7c0;
+      --accent: #ff5f87;
+      --accent-2: #ff7aa1;
+      --white: #ffffff;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 24px;
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,95,135,0.12), transparent 25%),
+        radial-gradient(circle at bottom left, rgba(255,95,135,0.1), transparent 22%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image:
+        radial-gradient(circle, #fff 0.8px, transparent 0.8px);
+      background-size: 12px 12px;
+      z-index: 1;
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,95,135,0.18), transparent 65%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      filter: blur(18px);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(10,10,13,0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      padding: 4px;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .cta-nav {
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(255,95,135,0.25);
+    }
+
+    section {
+      position: relative;
+      z-index: 2;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 90px 20px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-size: 0.92rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 18px var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 7vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      margin-bottom: 22px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #fff, #ff95b5, #ff5f87);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      font-weight: 700;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      box-shadow: 0 12px 30px rgba(255,95,135,0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.03);
+      color: var(--white);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at top right, rgba(255,95,135,0.22), transparent 35%);
+      pointer-events: none;
+    }
+
+    .card-logo {
+      width: 84px;
+      height: 84px;
+      margin-bottom: 22px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-card h3 {
+      font-size: 1.9rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 34px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 580px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,95,135,0.3);
+    }
+
+    .card .num {
+      font-size: 0.85rem;
+      color: var(--accent-2);
+      margin-bottom: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .project {
+      position: relative;
+      min-height: 280px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(160deg, rgba(255,95,135,0.2), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      transition: transform 0.35s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-8px) scale(1.01);
+    }
+
+    .project::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(10,10,13,0.8));
+      z-index: 0;
+    }
+
+    .project > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project .label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      font-size: 0.82rem;
+      color: #fff;
+      width: fit-content;
+    }
+
+    .project h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .project p {
+      color: #d8d8df;
+      font-size: 0.95rem;
+    }
+
+    .alt-bg {
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.015));
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding: 24px;
+      border-radius: 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+    }
+
+    .timeline-item .year {
+      color: var(--accent-2);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 8px;
+    }
+
+    .timeline-item p {
+      color: var(--muted);
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .price-card {
+      padding: 28px;
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-card.featured {
+      border-color: rgba(255,95,135,0.35);
+      transform: scale(1.02);
+      background:
+        linear-gradient(180deg, rgba(255,95,135,0.08), rgba(255,255,255,0.04));
+    }
+
+    .price-card .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 10px;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      border-radius: 999px;
+      background: rgba(255,95,135,0.15);
+      color: #ff9ab5;
+      border: 1px solid rgba(255,95,135,0.2);
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 12px 0 18px;
+    }
+
+    .price small {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .price-card ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 20px 0 24px;
+    }
+
+    .price-card li {
+      color: var(--muted);
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .price-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .contact-card,
+    .contact-box {
+      padding: 28px;
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .contact-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: var(--white);
+      border-radius: 18px;
+      padding: 16px 18px;
+      outline: none;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #8f8f99;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .contact-wrap,
+      .pricing,
+      .portfolio-grid,
+      .cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-grid,
+      .contact-wrap,
+      .pricing,
+      .portfolio-grid,
+      .cards-grid,
+      .timeline-item,
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        gap: 10px;
+      }
+
+      .container {
+        padding: 70px 20px;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 12vw, 4.2rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <header>
+    <nav class="nav">
+      <a href="#home" class="brand">
+        <img src="logo.jpg" alt="Logo Ulian Eric" />
+        <div class="brand-text">
+          Ulian Eric
+          <span>Freelancer Graphic Designer</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#about">Chi sono</a>
+        <a href="#services">Servizi</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#collab">Collaborazioni</a>
+        <a href="#pricing">Tariffe</a>
+        <a href="#contact">Contatti</a>
+      </div>
+
+      <a class="cta-nav" href="#contact">Richiedi un preventivo</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="reveal">
+            <div class="eyebrow">Supporto web e grafico per aziende e professionisti</div>
+            <h1>
+              Design <span class="gradient-text">moderno</span><br />
+              per brand che vogliono farsi notare.
+            </h1>
+            <p>
+              Sono <strong>Ulian Eric</strong>, freelancer graphic designer. Realizzo identità visive,
+              contenuti digitali, progetti fotografici, video e soluzioni creative pensate per
+              raccontare un brand con stile, carattere e impatto.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#portfolio" class="btn btn-primary">Scopri i miei lavori</a>
+              <a href="#contact" class="btn btn-secondary">Parliamo del tuo progetto</a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat">
+                <strong>Branding</strong>
+                <span>Identità visive e design</span>
+              </div>
+              <div class="stat">
+                <strong>Foto & Video</strong>
+                <span>Contenuti per aziende ed eventi</span>
+              </div>
+              <div class="stat">
+                <strong>Web Support</strong>
+                <span>Supporto grafico e digitale</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card reveal" id="tiltCard">
+            <div class="card-logo">
+              <img src="logo.jpg" alt="Logo Ulian Eric" />
+            </div>
+            <div class="mini-label">Visual Identity / Content / Creative Direction</div>
+            <h3>Creatività che comunica.</h3>
+            <p>
+              Progetti visivi su misura per freelance, professionisti, aziende, matrimoni ed eventi.
+            </p>
+            <div class="tags">
+              <div class="tag">Graphic Design</div>
+              <div class="tag">Portfolio & Content</div>
+              <div class="tag">Fotografia Digitale</div>
+              <div class="tag">Foto Analogiche</div>
+              <div class="tag">Video</div>
+              <div class="tag">Wedding</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Chi sono</div>
+            <h2>Un approccio creativo,<br />pulito e contemporaneo.</h2>
+          </div>
+          <p>
+            Lavoro su progetti che uniscono estetica, strategia e comunicazione.
+            Ogni dettaglio viene pensato per valorizzare il tuo brand e renderlo
+            riconoscibile online e offline.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card reveal">
+            <div class="num">01</div>
+            <h3>Identità visiva</h3>
+            <p>Logo, palette, tipografia, linee guida e materiali coordinati per un’immagine forte e coerente.</p>
+          </div>
+          <div class="card reveal">
+            <div class="num">02</div>
+            <h3>Contenuti digitali</h3>
+            <p>Visual per social, campagne, presentazioni, creatività per adv e contenuti per la comunicazione online.</p>
+          </div>
+          <div class="card reveal">
+            <div class="num">03</div>
+            <h3>Foto e storytelling</h3>
+            <p>Scatti digitali e analogici per raccontare brand, persone, eventi e progetti con autenticità.</p>
+          </div>
+          <div class="card reveal">
+            <div class="num">04</div>
+            <h3>Supporto completo</h3>
+            <p>Affianco aziende e professionisti con un supporto grafico e web continuativo, flessibile e su misura.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="alt-bg">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Servizi</div>
+            <h2>Cosa posso fare<br />per il tuo brand.</h2>
+          </div>
+          <p>
+            Una selezione dei servizi principali. Ogni progetto può essere personalizzato
+            in base agli obiettivi, al budget e al tipo di comunicazione che vuoi costruire.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card reveal">
+            <h3>Graphic Design</h3>
+            <p>Logo design, materiali aziendali, volantini, brochure, visual coordinati, packaging e layout editoriali.</p>
+          </div>
+          <div class="card reveal">
+            <h3>Supporto Web</h3>
+            <p>Supporto grafico per siti, landing page, contenuti visuali e collaborazione con professionisti e aziende.</p>
+          </div>
+          <div class="card reveal">
+            <h3>Fotografia Digitale</h3>
+            <p>Servizi fotografici per prodotti, ritratti, backstage, social content, aziende, eventi e matrimoni.</p>
+          </div>
+          <div class="card reveal">
+            <h3>Video Content</h3>
+            <p>Riprese e contenuti dinamici pensati per reel, promo, presentazioni e storytelling visivo.</p>
+          </div>
+          <div class="card reveal">
+            <h3>Foto Analogiche</h3>
+            <p>Servizi dal gusto autentico e materico, ideali per editoriali, brand identity e storytelling emozionale.</p>
+          </div>
+          <div class="card reveal">
+            <h3>Matrimoni</h3>
+            <p>Foto e contenuti creativi per wedding, con uno stile elegante, spontaneo e contemporaneo.</p>
+          </div>
+          <div class="card reveal">
+            <h3>Collaborazioni Creative</h3>
+            <p>Partnership con agenzie, fotografi, videomaker, aziende e professionisti per progetti su misura.</p>
+          </div>
+          <div class="card reveal">
+            <h3>Consulenza Visiva</h3>
+            <p>Analisi, direzione creativa e supporto nella costruzione dell’immagine del tuo brand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Portfolio</div>
+            <h2>Lavori selezionati.</h2>
+          </div>
+          <p>
+            Qui sotto trovi alcune categorie che puoi poi riempire con progetti reali, foto, video o case study.
+          </p>
+        </div>
+
+        <div class="portfolio-grid">
+          <article class="project reveal">
+            <span class="label">Brand Identity</span>
+            <h3>Visual design per aziende e professionisti</h3>
+            <p>Loghi, coordinati e sistemi visivi progettati per distinguersi in modo chiaro e memorabile.</p>
+          </article>
+
+          <article class="project reveal">
+            <span class="label">Content Design</span>
+            <h3>Creatività digitali e social visuals</h3>
+            <p>Contenuti dinamici per comunicazione online, campagne e presenza digitale più coerente.</p>
+          </article>
+
+          <article class="project reveal">
+            <span class="label">Photography</span>
+            <h3>Servizi fotografici digitali</h3>
+            <p>Scatti per branding, prodotto, ritratto, backstage, eventi e narrazione visiva professionale.</p>
+          </article>
+
+          <article class="project reveal">
+            <span class="label">Analog</span>
+            <h3>Progetti in fotografia analogica</h3>
+            <p>Immagini più intime e materiche, perfette per storytelling, moda, editoriali e progetti artistici.</p>
+          </article>
+
+          <article class="project reveal">
+            <span class="label">Video</span>
+            <h3>Video e contenuti motion</h3>
+            <p>Mini promo, reel, video storytelling e materiali visivi pensati per generare attenzione.</p>
+          </article>
+
+          <article class="project reveal">
+            <span class="label">Wedding</span>
+            <h3>Matrimoni ed eventi speciali</h3>
+            <p>Uno stile elegante e autentico per raccontare momenti reali, emozioni e dettagli con sensibilità.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="collab" class="alt-bg">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Collaborazioni</div>
+            <h2>Come lavoro con clienti<br />e partner creativi.</h2>
+          </div>
+          <p>
+            Collaboro con aziende, freelance, professionisti, studi creativi e realtà che cercano
+            un supporto visivo affidabile, flessibile e contemporaneo.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="year">STEP 01</div>
+            <div>
+              <h3>Brief e direzione</h3>
+              <p>Analisi degli obiettivi, del pubblico e dello stile visivo per costruire una direzione chiara fin da subito.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="year">STEP 02</div>
+            <div>
+              <h3>Sviluppo creativo</h3>
+              <p>Creo concept, proposte visuali e contenuti coerenti con il tono del brand o dell’evento.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="year">STEP 03</div>
+            <div>
+              <h3>Produzione e consegna</h3>
+              <p>Finalizzazione dei materiali, esportazione nei formati corretti e supporto operativo nella fase finale.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Tariffe</div>
+            <h2>Prezzi indicativi.</h2>
+          </div>
+          <p>
+            Questi prezzi sono puramente indicativi e possono cambiare in base a complessità,
+            tempistiche, quantità di materiale e richieste specifiche.
+          </p>
+        </div>
+
+        <div class="pricing">
+          <div class="price-card reveal">
+            <div class="top">
+              <h3>Start</h3>
+              <span class="badge">Essenziale</span>
+            </div>
+            <p>Per freelance, professionisti e piccole attività.</p>
+            <div class="price">da 250€ <small>/ progetto</small></div>
+            <ul>
+              <li>Visual base o mini identità</li>
+              <li>Materiali grafici essenziali</li>
+              <li>Supporto rapido e diretto</li>
+              <li>Ideale per chi parte da zero</li>
+            </ul>
+            <a href="#contact" class="btn btn-secondary">Richiedi info</a>
+          </div>
+
+          <div class="price-card featured reveal">
+            <div class="top">
+              <h3>Pro</h3>
+              <span class="badge">Consigliato</span>
+            </div>
+            <p>Per brand che vogliono una presenza più forte e completa.</p>
+            <div class="price">da 600€ <small>/ progetto</small></div>
+            <ul>
+              <li>Branding o shooting strutturato</li>
+              <li>Contenuti grafici coordinati</li>
+              <li>Supporto creativo più completo</li>
+              <li>Maggiore personalizzazione</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary">Chiedi un preventivo</a>
+          </div>
+
+          <div class="price-card reveal">
+            <div class="top">
+              <h3>Custom</h3>
+              <span class="badge">Su misura</span>
+            </div>
+            <p>Per collaborazioni continuative, wedding o progetti complessi.</p>
+            <div class="price">su richiesta <small>/ preventivo</small></div>
+            <ul>
+              <li>Pacchetti branding + foto + video</li>
+              <li>Servizi wedding personalizzati</li>
+              <li>Collaborazioni con aziende e studi</li>
+              <li>Soluzioni costruite ad hoc</li>
+            </ul>
+            <a href="#contact" class="btn btn-secondary">Parliamone</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="alt-bg">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Contatti</div>
+            <h2>Parliamo del tuo prossimo progetto.</h2>
+          </div>
+          <p>
+            Per collaborazioni, preventivi o richieste personalizzate puoi contattarmi direttamente.
+          </p>
+        </div>
+
+        <div class="contact-wrap">
+          <div class="contact-card reveal">
+            <h3>Contatti diretti</h3>
+            <div class="contact-list">
+              <div class="contact-item">
+                <span>Nome</span>
+                Ulian Eric
+              </div>
+              <div class="contact-item">
+                <span>Ruolo</span>
+                Freelancer Graphic Designer
+              </div>
+              <div class="contact-item">
+                <span>P. IVA</span>
+                05525120266
+              </div>
+              <div class="contact-item">
+                <span>Telefono</span>
+                <a href="tel:+393483762529">+39 348 376 2529</a>
+              </div>
+              <div class="contact-item">
+                <span>Email</span>
+                <a href="mailto:ulianeric.designer@gmail.com">ulianeric.designer@gmail.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-box reveal">
+            <h3>Scrivimi</h3>
+            <form action="mailto:ulianeric.designer@gmail.com" method="post" enctype="text/plain">
+              <input type="text" name="nome" placeholder="Il tuo nome" required />
+              <input type="email" name="email" placeholder="La tua email" required />
+              <input type="text" name="servizio" placeholder="Servizio di interesse" />
+              <textarea name="messaggio" placeholder="Raccontami il tuo progetto"></textarea>
+              <button type="submit" class="btn btn-primary">Invia richiesta</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2025 Ulian Eric — Freelancer Graphic Designer</div>
+      <div>Supporto web e grafico per aziende e professionisti</div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    const glow = document.getElementById('cursorGlow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    const tiltCard = document.getElementById('tiltCard');
+    tiltCard.addEventListener('mousemove', (e) => {
+      const rect = tiltCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const rotateY = ((x / rect.width) - 0.5) * 12;
+      const rotateX = ((y / rect.height) - 0.5) * -12;
+
+      tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    tiltCard.addEventListener('mouseleave', () => {
+      tiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+  </script>
+</body>
+</html>
