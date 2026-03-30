@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin | Ulian Eric</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --bg: #0a0a0d;
+      --card: #121218;
+      --text: #f5f5f7;
+      --muted: #b7b7c0;
+      --accent: #ff5f87;
+      --accent-hover: #ff7aa1;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .admin-card {
+      background: var(--card);
+      width: 100%;
+      max-width: 500px;
+      padding: 40px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    h1 { font-size: 1.8rem; margin-bottom: 8px; letter-spacing: -0.02em; }
+    p.subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 30px; }
+
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus { border-color: var(--accent); }
+
+    input[type="file"] {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      margin-top: 10px;
+    }
+
+    button:hover { background: var(--accent-hover); transform: translateY(-2px); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    #message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
+
+    .msg-success { background: rgba(0, 255, 128, 0.1); color: #00ff80; border: 1px solid #00ff80; }
+    .msg-error { background: rgba(255, 75, 75, 0.1); color: #ff4b4b; border: 1px solid #ff4b4b; }
+  </style>
+</head>
+<body>
+
+<div class="admin-card">
+  <h1>Nuovo Progetto</h1>
+  <p class="subtitle">Carica un lavoro nella galleria del portfolio.</p>
+
+  <form id="upload-form">
+    <div class="form-group">
+      <label>Titolo</label>
+      <input type="text" id="title" placeholder="Es: Branding Minimalista" required>
+    </div>
+
+    <div class="form-group">
+      <label>Categoria</label>
+      <select id="category">
+        <option value="Branding">Branding</option>
+        <option value="Photography">Photography</option>
+        <option value="Web Design">Web Design</option>
+        <option value="Wedding">Wedding</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Descrizione</label>
+      <textarea id="description" rows="3" placeholder="Breve descrizione del lavoro..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Immagine Copertina</label>
+      <input type="file" id="file-input" accept="image/*" required>
+    </div>
+
+    <button type="submit" id="submit-btn">Pubblica Progetto</button>
+  </form>
+
+  <div id="message"></div>
+</div>
+
+<script>
+  // CONFIGURAZIONE - Inserisci i tuoi dati qui
+  const SB_URL = 'https://njvruwgeobgzbuwhonoc.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qdnJ1d2dlb2JnemJ1d2hvbm9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4Njg3MDYsImV4cCI6MjA5MDQ0NDcwNn0.iKM7ie0T9iavylyDAouuLX9QPGbqRCjKte4T1LgBBBA';
+  const supabaseClient = supabase.createClient(SB_URL, SB_KEY);
+
+  const form = document.getElementById('upload-form');
+  const btn = document.getElementById('submit-btn');
+  const message = document.getElementById('message');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Reset stato UI
+    btn.disabled = true;
+    btn.innerText = "Caricamento...";
+    message.style.display = "none";
+
+    const title = document.getElementById('title').value;
+    const category = document.getElementById('category').value;
+    const description = document.getElementById('description').value;
+    const file = document.getElementById('file-input').files[0];
+
+    try {
+      // 1. UPLOAD IMMAGINE
+      // Creiamo un nome file unico usando il timestamp per evitare sovrascritture
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { data: storageData, error: storageError } = await supabaseClient
+        .storage
+        .from('portfolio-images') // Assicurati che il bucket si chiami così
+        .upload(filePath, file);
+
+      if (storageError) throw storageError;
+
+      // 2. RECUPERO URL PUBBLICO
+      const { data: urlData } = supabaseClient
+        .storage
+        .from('portfolio-images')
+        .getPublicUrl(filePath);
+
+      const publicUrl = urlData.publicUrl;
+
+      // 3. INSERIMENTO NEL DATABASE
+      const { error: dbError } = await supabaseClient
+        .from('lavori') // Assicurati che la tabella si chiami così
+        .insert([
+          { 
+            title: title, 
+            category: category, 
+            description: description, 
+            image_url: publicUrl 
+          }
+        ]);
+
+      if (dbError) throw dbError;
+
+      // Successo
+      message.innerText = "Progetto caricato correttamente!";
+      message.className = "msg-success";
+      message.style.display = "block";
+      form.reset();
+
+    } catch (error) {
+      message.innerText = "Errore: " + error.message;
+      message.className = "msg-error";
+      message.style.display = "block";
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Pubblica Progetto";
+    }
+  });
+</script>
+
+</body>
+</html>
